@@ -1,4 +1,4 @@
-# Pomodorooooo - Pomodoro Timer App
+# Pomodoro Timer App
 
 [![App Screenshot](https://ucarecdn.com/b181af2e-bb64-4aa6-a407-8f589745a5ee/Screenshot20250421145206.png)](https://ucarecdn.com/b181af2e-bb64-4aa6-a407-8f589745a5ee/Screenshot20250421145206.png)
 
@@ -50,4 +50,4 @@ This command starts the Vite development server for the frontend and launches th
 
 ## Inspiration
 
-This project was inspired by the aesthetic and focus concepts shared by **Xaviera Putri** ([@xavieraaputri](https://www.instagram.com/xavieraaputri/)).
+This project was inspired by the aesthetic and focus concepts shared by [**Xaviera Putri**](https://www.instagram.com/xavieraaputri).
