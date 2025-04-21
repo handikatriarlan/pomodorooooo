@@ -1,8 +1,6 @@
-/* Base Styles */
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap");
 
 :root {
-  /* Pastel color palette */
   --color-bg: #fef6e4;
   --color-text: #172c66;
   --color-primary: #f582ae;
@@ -15,14 +13,12 @@
   --color-card-bg: #fef6e4;
   --color-border: #172c66;
 
-  /* Spacing */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
 
-  /* Typography */
   --font-heading: "VT323", monospace;
   --font-body: "Space Mono", monospace;
   --font-size-sm: 0.875rem;
@@ -32,15 +28,12 @@
   --font-size-2xl: 2rem;
   --font-size-3xl: 3rem;
 
-  /* Borders */
   --border-width: 3px;
   --border-radius-sm: 8px;
   --border-radius-md: 12px;
 
-  /* Shadows */
   --shadow-offset: 4px;
 
-  /* Animation */
   --transition-speed: 0.2s;
 }
 
@@ -60,49 +53,44 @@ body {
   line-height: 1.6;
 }
 
-/* Remove body flex centering if it exists */
-/* body { display: flex; align-items: center; justify-content: center; } */
-
 .app {
   width: 100%;
   height: 100%;
-  display: flex; /* Use flex for main area */
-  position: relative; /* For absolute positioning of children */
-  overflow: hidden; /* Prevent scrollbars from hidden settings panel */
-  /* Remove padding, border, shadow for edge-to-edge */
+  display: flex;
+  position: relative;
+  overflow: hidden;
   padding: 0;
   border: none;
   box-shadow: none;
 }
 
 .main {
-  flex: 1; /* Main area takes full space */
-  display: flex; /* Use flex to center timer container */
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-md); /* Add padding inside main area */
+  padding: var(--space-md);
   overflow: hidden;
 }
 
 .timer-container {
-  width: 100%; /* Take full width within main's padding */
-  max-width: 500px; /* Max width for timer section */
-  height: auto; /* Adjust height based on content */
-  padding: var(--space-lg); /* More padding inside timer */
-  border: var(--border-width) solid var(--color-border); /* Keep border for definition */
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  padding: var(--space-lg);
+  border: var(--border-width) solid var(--color-border);
   background-color: var(--color-secondary);
-  border-radius: var(--border-radius-md); /* Restore radius */
+  border-radius: var(--border-radius-md);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border); /* Restore shadow */
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
   text-align: center;
 }
 
-/* Emphasize Timer */
 .timer {
-  font-size: clamp(3rem, 12vw, 5rem); /* Responsive font size */
+  font-size: clamp(3rem, 12vw, 5rem);
   font-weight: bold;
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -111,14 +99,14 @@ body {
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
-  min-width: 6ch; /* Ensure minimum width */
+  min-width: 6ch;
   text-align: center;
   line-height: 1.1;
 }
 
 .session-label {
   font-family: var(--font-heading);
-  font-size: var(--font-size-lg); /* Slightly smaller */
+  font-size: var(--font-size-lg);
   font-weight: bold;
   margin-bottom: var(--space-sm);
   color: var(--color-text);
@@ -127,7 +115,7 @@ body {
 
 .controls {
   display: flex;
-  gap: var(--space-md); /* More gap */
+  gap: var(--space-md);
   margin-top: var(--space-md);
   flex-wrap: wrap;
   justify-content: center;
@@ -176,14 +164,14 @@ body {
 }
 
 .progress-bar {
-  width: 90%; /* Wider progress bar */
+  width: 90%;
   max-width: 350px;
-  height: 24px; /* Taller progress bar */
+  height: 24px;
   background-color: var(--color-bg);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   overflow: hidden;
-  margin-top: var(--space-lg); /* More space above */
+  margin-top: var(--space-lg);
 }
 
 .progress {
@@ -193,20 +181,19 @@ body {
   transition: width 1s linear;
 }
 
-/* Settings Panel */
 .settings-container {
   position: absolute;
   top: 0;
   right: 0;
-  width: 320px; /* Fixed width */
-  max-width: 90%; /* Prevent overflow on very small screens */
+  width: 320px;
+  max-width: 90%;
   height: 100%;
   background-color: var(--color-accent);
   border-left: var(--border-width) solid var(--color-border);
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.15);
-  padding: var(--space-lg); /* More padding */
-  transform: translateX(100%); /* Start hidden */
-  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+  padding: var(--space-lg);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   z-index: 100;
   overflow-y: auto;
   display: flex;
@@ -214,26 +201,26 @@ body {
 }
 
 .settings-container.visible {
-  transform: translateX(0); /* Slide in */
+  transform: translateX(0);
 }
 
 .settings-title {
   font-family: var(--font-heading);
-  font-size: var(--font-size-xl); /* Larger title */
+  font-size: var(--font-size-xl);
   color: var(--color-text);
-  margin-bottom: var(--space-lg); /* More space */
+  margin-bottom: var(--space-lg);
   text-align: center;
   text-transform: uppercase;
-  flex-shrink: 0; /* Prevent title shrinking */
+  flex-shrink: 0;
 }
 
 .settings-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-md); /* More gap */
+  gap: var(--space-md);
   width: 100%;
   margin: 0 auto;
-  flex-grow: 1; /* Allow grid to take space if needed */
+  flex-grow: 1;
 }
 
 .setting {
@@ -244,13 +231,13 @@ body {
 
 .setting label {
   font-weight: bold;
-  font-size: var(--font-size-base); /* Larger label */
+  font-size: var(--font-size-base);
   color: var(--color-text);
 }
 
 .setting input[type="number"] {
   width: 100%;
-  padding: var(--space-md); /* Larger input padding */
+  padding: var(--space-md);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   font-family: var(--font-body);
@@ -258,17 +245,16 @@ body {
   font-size: var(--font-size-base);
 }
 
-/* Settings Toggle Button */
 .settings-toggle-btn {
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
-  z-index: 110; /* Above settings panel */
+  z-index: 110;
   background: var(--color-tertiary);
   border: var(--border-width) solid var(--color-border);
-  border-radius: 50%; /* Circle button */
-  width: 44px; /* Size */
-  height: 44px; /* Size */
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,7 +279,6 @@ body {
   height: 24px;
 }
 
-/* Notification */
 .notification {
   position: fixed;
   top: 0;
@@ -327,6 +312,3 @@ body {
   font-size: var(--font-size-lg);
   color: var(--color-text);
 }
-
-/* Remove media queries if they conflict */
-/* @media (...) { ... } */

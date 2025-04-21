@@ -1,12 +1,8 @@
-/**
- * UI class for handling the DOM updates and event listeners
- */
 export class UI {
     constructor(timer, settings) {
         this.timer = timer;
         this.settings = settings;
 
-        // DOM elements
         this.timerEl = document.getElementById('timer');
         this.sessionLabelEl = document.getElementById('session-label');
         this.startBtn = document.getElementById('start-btn');
@@ -14,67 +10,44 @@ export class UI {
         this.resetBtn = document.getElementById('reset-btn');
         this.progressBar = document.getElementById('progress');
 
-        // Form elements
         this.workTimeInput = document.getElementById('work-time');
         this.shortBreakInput = document.getElementById('short-break');
         this.longBreakInput = document.getElementById('long-break');
         this.sessionsInput = document.getElementById('sessions-until-long-break');
 
-        // Notification elements
         this.notification = document.getElementById('notification');
         this.notificationText = document.getElementById('notification-text');
         this.notificationCloseBtn = document.getElementById('notification-close');
 
-        // Settings Panel elements
         this.settingsToggleBtn = document.getElementById('settings-toggle-btn');
         this.settingsContainer = document.querySelector('.settings-container');
     }
 
-    /**
-     * Initialize the UI and event listeners
-     */
     initializeUI() {
-        // Load settings into the form
         this.workTimeInput.value = this.settings.workTime;
         this.shortBreakInput.value = this.settings.shortBreakTime;
         this.longBreakInput.value = this.settings.longBreakTime;
         this.sessionsInput.value = this.settings.sessionsUntilLongBreak;
 
-        // Initialize the timer display
         this.timerEl.textContent = this.timer.formatTime();
-
-        // Set up timer event handlers
         this.setupTimerEvents();
-
-        // Set up UI event listeners
         this.setupEventListeners();
     }
 
-    /**
-     * Show notification
-     */
     showNotification(message) {
         this.notificationText.textContent = message;
         this.notification.classList.add('show');
     }
 
-    /**
-     * Hide notification
-     */
     hideNotification() {
         this.notification.classList.remove('show');
     }
 
-    /**
-     * Set up timer event handlers
-     */
     setupTimerEvents() {
-        // Update UI on timer tick
         this.timer.onTick = (time, progress) => {
             this.timerEl.textContent = time;
             this.progressBar.style.width = `${progress}%`;
 
-            // Add critical class when less than 10 seconds left
             if (this.timer.currentTime <= 10) {
                 this.timerEl.classList.add('critical');
             } else {
@@ -82,14 +55,12 @@ export class UI {
             }
         };
 
-        // Handle session completion
         this.timer.onSessionComplete = (completedSession) => {
             const nextSession = this.timer.currentSession;
             const message = `${completedSession.charAt(0).toUpperCase() + completedSession.slice(1)} session completed! Starting ${nextSession} session.`;
             this.showNotification(message);
         };
 
-        // Update UI on session change
         this.timer.onSessionChange = (newSession) => {
             let sessionText = 'Work Session';
             let sessionClass = 'work';
@@ -105,15 +76,12 @@ export class UI {
                     break;
             }
 
-            // Update session label
             this.sessionLabelEl.textContent = sessionText;
 
-            // Update UI to reflect current session type
             document.querySelector('.timer-container').classList.remove('work', 'short-break', 'long-break');
             document.querySelector('.timer-container').classList.add(sessionClass);
         };
 
-        // Handle timer reset
         this.timer.onReset = (time) => {
             this.timerEl.textContent = time;
             this.progressBar.style.width = '0%';
@@ -122,11 +90,7 @@ export class UI {
         };
     }
 
-    /**
-     * Set up event listeners for UI controls
-     */
     setupEventListeners() {
-        // Timer controls
         this.startBtn.addEventListener('click', () => {
             if (this.timer.isPaused) {
                 this.timer.resume();
@@ -147,12 +111,10 @@ export class UI {
             this.timer.reset();
         });
 
-        // Notification close button
         this.notificationCloseBtn.addEventListener('click', () => {
             this.hideNotification();
         });
 
-        // Settings changes
         this.workTimeInput.addEventListener('change', () => {
             this.settings.workTime = parseInt(this.workTimeInput.value, 10);
             this.settings.save();
@@ -185,12 +147,10 @@ export class UI {
             this.settings.save();
         });
 
-        // Settings Panel Toggle
         this.settingsToggleBtn.addEventListener('click', () => {
             this.settingsContainer.classList.toggle('visible');
         });
 
-        // Optional: Close settings when clicking outside
         document.addEventListener('click', (event) => {
             if (!this.settingsContainer.contains(event.target) && !this.settingsToggleBtn.contains(event.target) && this.settingsContainer.classList.contains('visible')) {
                 this.settingsContainer.classList.remove('visible');
@@ -198,16 +158,12 @@ export class UI {
         });
     }
 
-    /**
-     * Update button states based on timer state
-     */
     updateButtonStates() {
         const { isRunning, isPaused } = this.timer;
 
         this.startBtn.disabled = isRunning && !isPaused;
         this.pauseBtn.disabled = !isRunning || isPaused;
 
-        // Update button text based on state
         if (isPaused) {
             this.startBtn.textContent = 'Resume';
         } else {

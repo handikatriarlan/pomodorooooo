@@ -6,10 +6,8 @@ import electronSquirrelStartup from 'electron-squirrel-startup';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Disable GPU acceleration for WSL2
 app.disableHardwareAcceleration();
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (electronSquirrelStartup) {
     app.quit();
 }
@@ -17,33 +15,25 @@ if (electronSquirrelStartup) {
 let mainWindow;
 
 const createWindow = () => {
-    // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,  // Example width (16 part)
-        height: 450, // Example height (9 part)
-        // Remove or adjust minWidth/minHeight if they conflict with minimized view
-        // minWidth: 360,
-        // minHeight: 540,
+        width: 650,
+        height: 400,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            // preload: path.join(__dirname, 'preload.js') // preload seems unused currently
         },
-        icon: path.join(__dirname, '../public/icon.png'),
+        icon: path.join(__dirname, '../public/vite.svg'),
         title: 'Pomodoro Timer',
-        backgroundColor: '#ffffff', // Match your app's background
+        backgroundColor: '#ffffff',
         show: false,
-        resizable: true // Ensure window is resizable
+        resizable: true,
+        alwaysOnTop: true,
     });
 
-    // In production, use the static files
     if (app.isPackaged) {
         mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     } else {
-        // In development, connect to the Vite dev server
         mainWindow.loadURL('http://localhost:3000');
-        // Open the DevTools
-        // mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
 
     mainWindow.once('ready-to-show', () => {
@@ -51,31 +41,24 @@ const createWindow = () => {
     });
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
 app.whenReady().then(() => {
     createWindow();
 
     app.on('activate', () => {
-        // On macOS it's common to re-create a window in the app when the
-        // dock icon is clicked and there are no other windows open.
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
     });
 });
 
-// Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-// Handle theme changes
 ipcMain.handle('get-system-theme', () => {
     return nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
 });
 
-// Listen for theme updates
 nativeTheme.on('updated', () => {
     if (mainWindow) {
         mainWindow.webContents.send('system-theme-updated',
