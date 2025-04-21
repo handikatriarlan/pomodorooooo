@@ -1,12 +1,16 @@
 import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import electronSquirrelStartup from 'electron-squirrel-startup';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Disable GPU acceleration for WSL2
+app.disableHardwareAcceleration();
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
+if (electronSquirrelStartup) {
     app.quit();
 }
 
@@ -37,7 +41,7 @@ const createWindow = () => {
         // In development, connect to the Vite dev server
         mainWindow.loadURL('http://localhost:3000');
         // Open the DevTools
-        mainWindow.webContents.openDevTools({ mode: 'detach' });
+        // mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
 
     mainWindow.once('ready-to-show', () => {
