@@ -19,19 +19,21 @@ let mainWindow;
 const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 400,
-        height: 600,
-        minWidth: 360,
-        minHeight: 540,
+        width: 800,  // Example width (16 part)
+        height: 450, // Example height (9 part)
+        // Remove or adjust minWidth/minHeight if they conflict with minimized view
+        // minWidth: 360,
+        // minHeight: 540,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            preload: path.join(__dirname, 'preload.js')
+            // preload: path.join(__dirname, 'preload.js') // preload seems unused currently
         },
         icon: path.join(__dirname, '../public/icon.png'),
         title: 'Pomodoro Timer',
-        backgroundColor: '#ffffff',
-        show: false
+        backgroundColor: '#ffffff', // Match your app's background
+        show: false,
+        resizable: true // Ensure window is resizable
     });
 
     // In production, use the static files
