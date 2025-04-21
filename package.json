@@ -1,14 +1,38 @@
 {
   "name": "pomodorooooo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A stylish Pomodoro Timer desktop application",
+  "main": "electron/main.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:dev": "concurrently \"npm run dev\" \"electron .\"",
+    "electron:build": "vite build && electron-builder",
+    "electron:preview": "vite build && electron ."
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3",
     "vite": "^6.3.1"
+  },
+  "build": {
+    "appId": "com.pomodoro.app",
+    "productName": "Pomodoro Timer",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }
