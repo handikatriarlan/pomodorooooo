@@ -1,0 +1,43 @@
+/* Light Theme (Default) */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-primary: #ff6b6b;
+  --color-secondary: #4ecdc4;
+  --color-tertiary: #ffe66d;
+  --color-accent: #ff9f1c;
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-error: #e74c3c;
+  --color-card-bg: #f9f9f9;
+  --color-border: #1a1a1a;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #1a1a1a;
+  --color-text: #f9f9f9;
+  --color-primary: #ff6b6b;
+  --color-secondary: #4ecdc4;
+  --color-tertiary: #ffe66d;
+  --color-accent: #ff9f1c;
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-error: #e74c3c;
+  --color-card-bg: #2d2d2d;
+  --color-border: #f9f9f9;
+}
+
+/* Theme transition */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle animation */
+.theme-toggle__icon {
+  transition: transform 0.5s ease;
+}
+
+[data-theme="dark"] .theme-toggle__icon {
+  transform: rotate(180deg);
+}

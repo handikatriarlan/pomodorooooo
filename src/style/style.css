@@ -1,0 +1,285 @@
+/* Base Styles */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap");
+
+:root {
+  /* Pastel color palette */
+  --color-bg: #fef6e4;
+  --color-text: #172c66;
+  --color-primary: #f582ae;
+  --color-secondary: #8bd3dd;
+  --color-tertiary: #f3d2c1;
+  --color-accent: #ffd803;
+  --color-success: #8bd3dd;
+  --color-warning: #f582ae;
+  --color-error: #ef4565;
+  --color-card-bg: #fef6e4;
+  --color-border: #172c66;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Typography */
+  --font-heading: "VT323", monospace;
+  --font-body: "Space Mono", monospace;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+
+  /* Borders */
+  --border-width: 3px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+
+  /* Shadows */
+  --shadow-offset: 4px;
+
+  /* Animation */
+  --transition-speed: 0.2s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-tertiary);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+  position: relative;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.timer-container {
+  padding: var(--space-md);
+  border: var(--border-width) solid var(--color-border);
+  background-color: var(--color-secondary);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+}
+
+.session-label {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+.timer {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: bold;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  padding: var(--space-sm) var(--space-lg);
+  margin-bottom: var(--space-md);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+  min-width: 180px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: bold;
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: var(--font-size-base);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-success);
+  color: var(--color-text);
+}
+
+.btn-secondary {
+  background-color: var(--color-warning);
+  color: var(--color-text);
+}
+
+.btn-tertiary {
+  background-color: var(--color-error);
+  color: var(--color-bg);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  margin: var(--space-md) 0 0 0;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-primary);
+  transition: width 1s linear;
+}
+
+.settings-container {
+  padding: var(--space-md);
+  border: var(--border-width) solid var(--color-border);
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+}
+
+.settings-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.setting label {
+  font-weight: bold;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.setting input[type="number"] {
+  width: 100%;
+  padding: var(--space-sm);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  font-size: var(--font-size-base);
+}
+
+.notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.notification.show {
+  display: flex;
+}
+
+.notification-content {
+  background-color: var(--color-bg);
+  padding: var(--space-lg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+}
+
+.notification-content p {
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  :root {
+    --font-size-3xl: 2.5rem;
+  }
+
+  .app {
+    max-width: 100%;
+    aspect-ratio: auto;
+    min-height: 100vh;
+  }
+
+  .controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
