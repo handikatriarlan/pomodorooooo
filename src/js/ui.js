@@ -24,6 +24,10 @@ export class UI {
         this.notification = document.getElementById('notification');
         this.notificationText = document.getElementById('notification-text');
         this.notificationCloseBtn = document.getElementById('notification-close');
+
+        // Settings Panel elements
+        this.settingsToggleBtn = document.getElementById('settings-toggle-btn');
+        this.settingsContainer = document.querySelector('.settings-container');
     }
 
     /**
@@ -179,6 +183,18 @@ export class UI {
         this.sessionsInput.addEventListener('change', () => {
             this.settings.sessionsUntilLongBreak = parseInt(this.sessionsInput.value, 10);
             this.settings.save();
+        });
+
+        // Settings Panel Toggle
+        this.settingsToggleBtn.addEventListener('click', () => {
+            this.settingsContainer.classList.toggle('visible');
+        });
+
+        // Optional: Close settings when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!this.settingsContainer.contains(event.target) && !this.settingsToggleBtn.contains(event.target) && this.settingsContainer.classList.contains('visible')) {
+                this.settingsContainer.classList.remove('visible');
+            }
         });
     }
 

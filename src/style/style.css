@@ -66,61 +66,43 @@ body {
 .app {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-md);
-  overflow: hidden;
-  /* Remove border/shadow for edge-to-edge */
-  /* border: ...; box-shadow: ...; */
+  display: flex; /* Use flex for main area */
+  position: relative; /* For absolute positioning of children */
+  overflow: hidden; /* Prevent scrollbars from hidden settings panel */
+  /* Remove padding, border, shadow for edge-to-edge */
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .main {
-  flex: 1; /* Take remaining vertical space */
-  display: flex;
-  flex-direction: row; /* Arrange children side-by-side */
-  gap: var(--space-md);
-  overflow: hidden; /* Prevent overflow within main */
-  height: 100%; /* Ensure main stretches vertically */
-}
-
-.timer-container,
-.settings-container {
-  flex: 1; /* Make both containers share horizontal space equally */
-  padding: var(--space-md);
-  border: var(--border-width) solid var(--color-border);
-  background-color: var(--color-card-bg);
-  border-radius: var(--border-radius-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
-  overflow-y: auto; /* Allow internal scroll if content overflows vertically */
-  height: 100%; /* Make containers fill the height of .main */
-  justify-content: center; /* Center content vertically */
+  flex: 1; /* Main area takes full space */
+  display: flex; /* Use flex to center timer container */
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md); /* Add padding inside main area */
+  overflow: hidden;
 }
 
 .timer-container {
+  width: 100%; /* Take full width within main's padding */
+  max-width: 500px; /* Max width for timer section */
+  height: auto; /* Adjust height based on content */
+  padding: var(--space-lg); /* More padding inside timer */
+  border: var(--border-width) solid var(--color-border); /* Keep border for definition */
   background-color: var(--color-secondary);
-  /* justify-content: center; */ /* Re-center vertically if needed */
+  border-radius: var(--border-radius-md); /* Restore radius */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border); /* Restore shadow */
+  text-align: center;
 }
 
-.settings-container {
-  background-color: var(--color-accent);
-  /* justify-content: center; */ /* Re-center vertically if needed */
-}
-
-.session-label {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  font-weight: bold;
-  margin-bottom: var(--space-sm);
-  color: var(--color-text);
-  text-transform: uppercase;
-}
-
+/* Emphasize Timer */
 .timer {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-3xl);
+  font-size: clamp(3rem, 12vw, 5rem); /* Responsive font size */
   font-weight: bold;
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -129,14 +111,25 @@ body {
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
-  min-width: 180px;
+  min-width: 6ch; /* Ensure minimum width */
   text-align: center;
+  line-height: 1.1;
+}
+
+.session-label {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg); /* Slightly smaller */
+  font-weight: bold;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+  text-transform: uppercase;
 }
 
 .controls {
   display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap; /* Still allow wrapping if container is very narrow */
+  gap: var(--space-md); /* More gap */
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -168,7 +161,7 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--color-success);
+  background-color: var(--color-accent);
   color: var(--color-text);
 }
 
@@ -183,13 +176,14 @@ body {
 }
 
 .progress-bar {
-  width: 100%;
-  height: 20px;
+  width: 90%; /* Wider progress bar */
+  max-width: 350px;
+  height: 24px; /* Taller progress bar */
   background-color: var(--color-bg);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   overflow: hidden;
-  margin: var(--space-md) 0 0 0;
+  margin-top: var(--space-lg); /* More space above */
 }
 
 .progress {
@@ -199,22 +193,47 @@ body {
   transition: width 1s linear;
 }
 
+/* Settings Panel */
+.settings-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px; /* Fixed width */
+  max-width: 90%; /* Prevent overflow on very small screens */
+  height: 100%;
+  background-color: var(--color-accent);
+  border-left: var(--border-width) solid var(--color-border);
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.15);
+  padding: var(--space-lg); /* More padding */
+  transform: translateX(100%); /* Start hidden */
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+  z-index: 100;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-container.visible {
+  transform: translateX(0); /* Slide in */
+}
+
 .settings-title {
   font-family: var(--font-heading);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl); /* Larger title */
   color: var(--color-text);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg); /* More space */
   text-align: center;
   text-transform: uppercase;
+  flex-shrink: 0; /* Prevent title shrinking */
 }
 
 .settings-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Keep settings stacked vertically */
-  gap: var(--space-sm);
+  grid-template-columns: 1fr;
+  gap: var(--space-md); /* More gap */
   width: 100%;
-  max-width: 300px; /* Adjust max-width as needed */
   margin: 0 auto;
+  flex-grow: 1; /* Allow grid to take space if needed */
 }
 
 .setting {
@@ -225,13 +244,13 @@ body {
 
 .setting label {
   font-weight: bold;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base); /* Larger label */
   color: var(--color-text);
 }
 
 .setting input[type="number"] {
   width: 100%;
-  padding: var(--space-sm);
+  padding: var(--space-md); /* Larger input padding */
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-sm);
   font-family: var(--font-body);
@@ -239,6 +258,42 @@ body {
   font-size: var(--font-size-base);
 }
 
+/* Settings Toggle Button */
+.settings-toggle-btn {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 110; /* Above settings panel */
+  background: var(--color-tertiary);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%; /* Circle button */
+  width: 44px; /* Size */
+  height: 44px; /* Size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 0;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.settings-toggle-btn:hover {
+  background-color: var(--color-accent);
+}
+
+.settings-toggle-btn:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+
+.settings-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Notification */
 .notification {
   position: fixed;
   top: 0;
